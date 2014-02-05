@@ -98,7 +98,7 @@ gem "auth_token"
 
 Next, use an initializer to configure the token file location.
 
-```
+```ruby
 # config/initializers/auth_token.rb
 
 AuthToken.set_file_path File.join(Rails.root, "db/auth_tokens.yml")
