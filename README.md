@@ -4,7 +4,7 @@
 [![Dependency Status](https://gemnasium.com/hopsoft/auth_token.png)](https://gemnasium.com/hopsoft/auth_token)
 [![Code Climate](https://codeclimate.com/github/hopsoft/auth_token.png)](https://codeclimate.com/github/hopsoft/auth_token)
 
-Easily create & store auth tokens for any API.
+Easily create & store auth tokens to help secure your API.
 
 * Simple
 * Does 1 thing well
@@ -14,6 +14,9 @@ Easily create & store auth tokens for any API.
 
 *AuthToken leverages a threadsafe [YAML::Store](http://ruby-doc.org/stdlib-2.1.0/libdoc/yaml/rdoc/YAML/Store.html)
 backend for simple token management.*
+
+**Note:** Best for smaller projects.
+You should look elsewhere if you're managing more than a few hundred tokens.
 
 ## Usage
 
