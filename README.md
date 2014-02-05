@@ -148,3 +148,7 @@ class UsersController < ActionController::Base
 
 end
 ```
+
+Learn more about the capabilities built into Rails that can be used to secure an API at
+[Rails Casts](http://railscasts.com/episodes/352-securing-an-api?view=asciicast).
+
