@@ -65,11 +65,11 @@ token.notes += " One more thing..."
 token.save!
 ```
 
-### Review the tokens file
+### Review the YAML file
 
 Tokens are stored in a human friendly YAML file and can be manually edited.
 
-*The location of this file is configurable. See above.*
+*The location of this file is configurable. [See above](#configure-the-storage-location)*
 
 ```yaml
 # /path/to/auth_tokens.yml
