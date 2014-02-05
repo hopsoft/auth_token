@@ -112,9 +112,8 @@ Next, use an initializer to configure the token file location.
 AuthToken.set_file_path File.join(Rails.root, "db/auth_tokens.yml")
 
 # optionally ensure a test token exists
-require "securerandom"
 if Rails.env == "development"
-  test_token = AuthToken.new(SecureRandom.hex,
+  test_token = AuthToken.new("test-token",
     roles: [:test],
     notes: "This token is for testing only."
   )
@@ -141,7 +140,7 @@ class UsersController < ActionController::Base
   def verify_auth_token
     # note: consumers should pass the token in the "Authorization" HTTP header
     authenticate_or_request_with_http_token do |token, options|
-      # use the @auth_token & its roles with your favorite authorization library
+      # use the @auth_token with your favorite authorization library
       # cancan for example
       @auth_token = AuthToken.find(token)
     end
