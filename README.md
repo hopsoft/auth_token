@@ -111,7 +111,7 @@ class UsersController < ActionController::Base
   def verify_auth_token
     # note: consumers should pass the token in the "Authorization" HTTP header
     authenticate_or_request_with_http_token do |token, options|
-      AuthToken.find(token)
+      @auth_token = AuthToken.find(token)
     end
   end
 
