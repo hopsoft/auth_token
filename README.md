@@ -113,7 +113,7 @@ AuthToken.set_file_path File.join(Rails.root, "db/auth_tokens.yml")
 
 # optionally ensure a test token exists
 if Rails.env == "development"
-  test_token = AuthToken.new("test-token",
+  test_token = AuthToken::Token.new("test-token",
     roles: [:test],
     notes: "This token is for testing only."
   )
