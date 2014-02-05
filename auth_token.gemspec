@@ -5,8 +5,8 @@ Gem::Specification.new do |spec|
   spec.version               = AuthToken::VERSION
   spec.license               = "MIT"
   spec.homepage              = "https://github.com/hopsoft/auth_token"
-  spec.summary               = "A simple auth token storage engine."
-  spec.description           = "A simple auth token storage engine."
+  spec.summary               = "A simple auth token storage engine"
+  spec.description           = "A simple auth token storage engine"
 
   spec.authors               = ["Nathan Hopkins"]
   spec.email                 = ["natehop@gmail.com"]

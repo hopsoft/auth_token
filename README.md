@@ -1,4 +1,4 @@
-# A Simple Auth Token Storage Engine
+# A simple auth token storage engine
 
 Easily create & store auth tokens for any API.
 
@@ -8,7 +8,8 @@ Easily create & store auth tokens for any API.
 * Works with any framework
 * Human friendly storage
 
-*Leverages a threadsafe `YAML::Store` back-end for simple API key management.*
+*AuthToken leverages a threadsafe [YAML::Store](http://ruby-doc.org/stdlib-2.1.0/libdoc/yaml/rdoc/YAML/Store.html)
+backend for simple API auth token management.*
 
 ## Basic Usage
 
@@ -68,7 +69,7 @@ token.save!
 
 Tokens are stored in a human friendly YAML file and can be manually edited.
 
-*The location of this file is configurable. See above."
+*The location of this file is configurable. See above.*
 
 ```yaml
 # /path/to/auth_tokens.yml
@@ -84,7 +85,6 @@ Tokens are stored in a human friendly YAML file and can be manually edited.
 ## Using with Rails
 
 First, ensure that any desired tokens exist in the YAML file.
-
 Then add the dependency to the Gemfile.
 
 ```ruby
