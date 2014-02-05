@@ -5,7 +5,7 @@ class TokenTest < MicroTest::Test
   before do
     @file_path = File.expand_path("../auth-tokens.yml", __FILE__)
     AuthToken.set_file_path @file_path
-    AuthToken.delete(:foobar)
+    AuthToken.delete!(:foobar)
   end
 
   test "key set on initialize" do

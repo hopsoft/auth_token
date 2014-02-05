@@ -5,7 +5,7 @@ class AuthTokenTest < MicroTest::Test
   before do
     @file_path = File.expand_path("../auth-tokens.yml", __FILE__)
     AuthToken.set_file_path @file_path
-    AuthToken.delete(:foobar)
+    AuthToken.delete!(:foobar)
   end
 
   test "set_file_path" do
@@ -38,8 +38,8 @@ class AuthTokenTest < MicroTest::Test
     assert AuthToken.find(:foobar).nil?
   end
 
-  test "ok to call delete on unknown key" do
-    assert AuthToken.delete(:foobar).nil?
+  test "ok to call delete! on unknown key" do
+    assert AuthToken.delete!(:foobar).nil?
   end
 
 end

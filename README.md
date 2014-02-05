@@ -15,7 +15,7 @@ Easily create & store auth tokens for any API.
 *AuthToken leverages a threadsafe [YAML::Store](http://ruby-doc.org/stdlib-2.1.0/libdoc/yaml/rdoc/YAML/Store.html)
 backend for simple token management.*
 
-## Basic Usage
+## Usage
 
 ### Install
 
@@ -38,10 +38,22 @@ token.save!
 # note: the token key can be any custom string value
 ```
 
+### See if a token exists
+
+```ruby
+AuthToken.exists?("2de1c1c7aefee1f811a20dfdfa30597e")
+```
+
 ### Find a token
 
 ```ruby
 token = AuthToken.find("2de1c1c7aefee1f811a20dfdfa30597e")
+```
+
+### Delete a token
+
+```ruby
+AuthToken.delete!("2de1c1c7aefee1f811a20dfdfa30597e")
 ```
 
 ### Save a token with roles
@@ -83,7 +95,7 @@ Tokens are stored in a human friendly YAML file and can be manually edited.
   :http_header: 'Authorization: Token token="2de1c1c7aefee1f811a20dfdfa30597e"'
 ```
 
-## Using with Rails
+## Example Rails Integration
 
 First, ensure that any desired tokens exist in the YAML file.
 Then add the dependency to the Gemfile.
@@ -98,6 +110,16 @@ Next, use an initializer to configure the token file location.
 ```ruby
 # config/initializers/auth_token.rb
 AuthToken.set_file_path File.join(Rails.root, "db/auth_tokens.yml")
+
+# optionally ensure a test token exists
+require "securerandom"
+if Rails.env == "development"
+  test_token = AuthToken.new(SecureRandom.hex,
+    roles: [:test],
+    notes: "This token is for testing only."
+  )
+  test_token.save!
+end
 ```
 
 Finally, add authentication to your controllers.
@@ -114,11 +136,13 @@ class UsersController < ActionController::Base
     # logic here ...
   end
 
-  private
+  protected
 
   def verify_auth_token
     # note: consumers should pass the token in the "Authorization" HTTP header
     authenticate_or_request_with_http_token do |token, options|
+      # use the @auth_token & its roles with your favorite authorization library
+      # cancan for example
       @auth_token = AuthToken.find(token)
     end
   end
