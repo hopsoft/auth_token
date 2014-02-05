@@ -27,7 +27,6 @@ gem install auth_token
 
 ```ruby
 require "auth_token"
-
 AuthToken.set_file_path "/path/to/auth_tokens.yml"
 ```
 
@@ -36,7 +35,6 @@ AuthToken.set_file_path "/path/to/auth_tokens.yml"
 ```ruby
 token = AuthToken::Token.new("2de1c1c7aefee1f811a20dfdfa30597e")
 token.save!
-
 # note: the token key can be any custom string value
 ```
 
@@ -53,7 +51,6 @@ key = "2de1c1c7aefee1f811a20dfdfa30597e"
 token = AuthToken::Token.new(key, roles: ["read", "write"])
 token.roles << "admin"
 token.save!
-
 # note: roles are arbitrary... define as many as your app needs
 ```
 
@@ -100,7 +97,6 @@ Next, use an initializer to configure the token file location.
 
 ```ruby
 # config/initializers/auth_token.rb
-
 AuthToken.set_file_path File.join(Rails.root, "db/auth_tokens.yml")
 ```
 
