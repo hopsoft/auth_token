@@ -47,7 +47,7 @@ token = AuthToken.find("2de1c1c7aefee1f811a20dfdfa30597e")
 ```ruby
 key = "2de1c1c7aefee1f811a20dfdfa30597e"
 token = AuthToken::Token.new(key, roles: ["read", "write"])
-token.roles << "delete"
+token.roles << "admin"
 token.save!
 
 # note: roles are arbitrary... define as many as your app needs
