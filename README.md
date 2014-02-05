@@ -96,6 +96,14 @@ Then add the dependency to the Gemfile.
 gem "auth_token"
 ```
 
+Next, use an initializer to configure the token file location.
+
+```
+# config/initializers/auth_token.rb
+
+AuthToken.set_file_path File.join(Rails.root, "db/auth_tokens.yml")
+```
+
 Finally, add authentication to your controllers.
 
 ```ruby
