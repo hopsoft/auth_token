@@ -1,5 +1,9 @@
 # A simple auth token storage engine
 
+[![Build Status](https://travis-ci.org/hopsoft/auth_token.png)](https://travis-ci.org/hopsoft/auth_token)
+[![Dependency Status](https://gemnasium.com/hopsoft/auth_token.png)](https://gemnasium.com/hopsoft/auth_token)
+[![Code Climate](https://codeclimate.com/github/hopsoft/auth_token.png)](https://codeclimate.com/github/hopsoft/auth_token)
+
 Easily create & store auth tokens for any API.
 
 * Simple
