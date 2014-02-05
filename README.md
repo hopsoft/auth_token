@@ -9,7 +9,7 @@ Easily create & store auth tokens for any API.
 * Human friendly storage
 
 *AuthToken leverages a threadsafe [YAML::Store](http://ruby-doc.org/stdlib-2.1.0/libdoc/yaml/rdoc/YAML/Store.html)
-backend for simple API auth token management.*
+backend for simple token management.*
 
 ## Basic Usage
 
