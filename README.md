@@ -30,12 +30,24 @@ require "auth_token"
 AuthToken.set_file_path "/path/to/auth_tokens.yml"
 ```
 
-### Create & save a token
+### Create a token
+
+```ruby
+token = AuthToken::Token.new("2de1c1c7aefee1f811a20dfdfa30597e")
+# note: the token key can be any custom string value
+```
+
+### Save a token
 
 ```ruby
 token = AuthToken::Token.new("2de1c1c7aefee1f811a20dfdfa30597e")
 token.save!
-# note: the token key can be any custom string value
+```
+
+### Delete a token
+
+```ruby
+AuthToken.delete!("2de1c1c7aefee1f811a20dfdfa30597e")
 ```
 
 ### See if a token exists
@@ -48,12 +60,6 @@ AuthToken.exists?("2de1c1c7aefee1f811a20dfdfa30597e")
 
 ```ruby
 token = AuthToken.find("2de1c1c7aefee1f811a20dfdfa30597e")
-```
-
-### Delete a token
-
-```ruby
-AuthToken.delete!("2de1c1c7aefee1f811a20dfdfa30597e")
 ```
 
 ### Save a token with roles
@@ -76,6 +82,28 @@ token = AuthToken::Token.new(key,
 )
 token.notes += " One more thing..."
 token.save!
+```
+
+### Inspect a token's key
+
+```ruby
+token = AuthToken::Token.new("2de1c1c7aefee1f811a20dfdfa30597e")
+token.key # => "2de1c1c7aefee1f811a20dfdfa30597e"
+```
+
+### Inspect a token's HTTP header
+
+```ruby
+token = AuthToken::Token.new("2de1c1c7aefee1f811a20dfdfa30597e")
+token.http_header # => "Authorization: Token token=\"2de1c1c7aefee1f811a20dfdfa30597e\""
+```
+
+### Inspect a token's roles
+
+```ruby
+key = "2de1c1c7aefee1f811a20dfdfa30597e"
+token = AuthToken::Token.new(key, roles: ["read", "write"])
+token.roles # => ["read", "write"]
 ```
 
 ### Review the YAML file
