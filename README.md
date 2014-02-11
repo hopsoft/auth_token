@@ -1,4 +1,4 @@
-# A simple auth token storage engine
+# A simple auth token/api key storage engine
 
 [![Build Status](https://travis-ci.org/hopsoft/auth_token.png?branch=master)](https://travis-ci.org/hopsoft/auth_token)
 [![Dependency Status](https://gemnasium.com/hopsoft/auth_token.png)](https://gemnasium.com/hopsoft/auth_token)
