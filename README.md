@@ -4,7 +4,7 @@
 [![Dependency Status](https://gemnasium.com/hopsoft/auth_token.png)](https://gemnasium.com/hopsoft/auth_token)
 [![Code Climate](https://codeclimate.com/github/hopsoft/auth_token.png)](https://codeclimate.com/github/hopsoft/auth_token)
 
-Easily create & store auth tokens to help secure your API.
+Easily create & store auth tokens/api keys to help secure your API.
 
 * Simple
 * Does 1 thing well
@@ -179,6 +179,8 @@ class UsersController < ActionController::Base
 
 end
 ```
+
+**Note**: This authentication strategy is basic & should be secured with [TLS/SSL](http://en.wikipedia.org/wiki/Transport_Layer_Security).
 
 Learn more about the capabilities built into Rails that can be used to secure an API at
 [Rails Casts](http://railscasts.com/episodes/352-securing-an-api?view=asciicast).
