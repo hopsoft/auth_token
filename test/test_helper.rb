@@ -1,2 +1,2 @@
 require "micro_test"
-require_relative "../lib/auth_token"
+require_relative "../lib/key_store"

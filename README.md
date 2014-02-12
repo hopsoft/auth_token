@@ -1,154 +1,151 @@
-# A simple auth token/api key storage engine
+# A simple api-key storage engine
 
-[![Build Status](https://travis-ci.org/hopsoft/auth_token.png?branch=master)](https://travis-ci.org/hopsoft/auth_token)
-[![Dependency Status](https://gemnasium.com/hopsoft/auth_token.png)](https://gemnasium.com/hopsoft/auth_token)
-[![Code Climate](https://codeclimate.com/github/hopsoft/auth_token.png)](https://codeclimate.com/github/hopsoft/auth_token)
+[![Build Status](https://travis-ci.org/hopsoft/key_store.png?branch=master)](https://travis-ci.org/hopsoft/key_store)
+[![Dependency Status](https://gemnasium.com/hopsoft/key_store.png)](https://gemnasium.com/hopsoft/key_store)
+[![Code Climate](https://codeclimate.com/github/hopsoft/key_store.png)](https://codeclimate.com/github/hopsoft/key_store)
 
-Easily create & store auth tokens/api keys to help secure your API.
+Easily create & store api-keys to help secure your API.
 
 * Simple
 * Does 1 thing well
-* Accepts custom token values
+* Accepts custom key values
 * Works with any framework
 * Human friendly storage
 
-*AuthToken leverages a threadsafe [YAML::Store](http://ruby-doc.org/stdlib-2.1.0/libdoc/yaml/rdoc/YAML/Store.html)
-backend for simple token management.*
+*KeyStore leverages a threadsafe [YAML::Store](http://ruby-doc.org/stdlib-2.1.0/libdoc/yaml/rdoc/YAML/Store.html)
+backend for simple api-key management.*
 
 **Note:** Best for smaller projects.
-You should look elsewhere if you're managing more than a few hundred tokens.
+You should look elsewhere if you're managing more than a few hundred api-keys.
 
 ## Usage
 
 ### Install
 
 ```sh
-gem install auth_token
+gem install key_store
 ```
 
 ### Configure the storage location
 
 ```ruby
-require "auth_token"
-AuthToken.set_file_path "/path/to/auth_tokens.yml"
+require "key_store"
+KeyStore.set_file_path "/path/to/keys.yml"
 ```
 
-### Create a token
+### Create an api-key
 
 ```ruby
-token = AuthToken::Token.new("2de1c1c7aefee1f811a20dfdfa30597e")
-# note: the token key can be any custom string value
+key = KeyStore::Key.new("2de1c1c7aefee1f811a20dfdfa30597e")
+# note: the key name can be any custom string value
 ```
 
-### Save a token
+### Save an api-key
 
 ```ruby
-token = AuthToken::Token.new("2de1c1c7aefee1f811a20dfdfa30597e")
-token.save!
+key = KeyStore::key.new("2de1c1c7aefee1f811a20dfdfa30597e")
+key.save!
 ```
 
-### Delete a token
+### Delete an api-key
 
 ```ruby
-AuthToken.delete!("2de1c1c7aefee1f811a20dfdfa30597e")
+KeyStore.delete!("2de1c1c7aefee1f811a20dfdfa30597e")
 ```
 
-### See if a token exists
+### See if an api-key exists
 
 ```ruby
-AuthToken.exists?("2de1c1c7aefee1f811a20dfdfa30597e")
+KeyStore.exists?("2de1c1c7aefee1f811a20dfdfa30597e")
 ```
 
-### Find a token
+### Find an api-key
 
 ```ruby
-token = AuthToken.find("2de1c1c7aefee1f811a20dfdfa30597e")
+key = KeyStore.find("2de1c1c7aefee1f811a20dfdfa30597e")
 ```
 
-### Save a token with roles
+### Save an api-key with roles
 
 ```ruby
-key = "2de1c1c7aefee1f811a20dfdfa30597e"
-token = AuthToken::Token.new(key, roles: ["read", "write"])
-token.roles << "admin"
-token.save!
+key = KeyStore::Key.new("2de1c1c7aefee1f811a20dfdfa30597e", roles: ["read", "write"])
+key.roles << "admin"
+key.save!
 # note: roles are arbitrary... define as many as your app needs
 ```
 
-### Save a token with notes
+### Save an api-key with notes
 
 ```ruby
-key = "2de1c1c7aefee1f811a20dfdfa30597e"
-token = AuthToken::Token.new(key,
+key = KeyStore::Key.new("2de1c1c7aefee1f811a20dfdfa30597e",
   roles: ["read", "write"],
-  notes: "This token is for testing only."
+  notes: "This key is for testing only."
 )
-token.notes += " One more thing..."
-token.save!
+key.notes += " One more thing..."
+key.save!
 ```
 
-### Inspect a token's key
+### Inspect an api-key's name
 
 ```ruby
-token = AuthToken::Token.new("2de1c1c7aefee1f811a20dfdfa30597e")
-token.key # => "2de1c1c7aefee1f811a20dfdfa30597e"
+key = KeyStore::Key.new("2de1c1c7aefee1f811a20dfdfa30597e")
+key.name # => "2de1c1c7aefee1f811a20dfdfa30597e"
 ```
 
-### Inspect a token's HTTP header
+### Inspect an api-key's HTTP header
 
 ```ruby
-token = AuthToken::Token.new("2de1c1c7aefee1f811a20dfdfa30597e")
-token.http_header # => "Authorization: Token token=\"2de1c1c7aefee1f811a20dfdfa30597e\""
+key = KeyStore::Key.new("2de1c1c7aefee1f811a20dfdfa30597e")
+key.http_header # => "Authorization: Token token=\"2de1c1c7aefee1f811a20dfdfa30597e\""
 ```
 
-### Inspect a token's roles
+### Inspect an api-key's roles
 
 ```ruby
-key = "2de1c1c7aefee1f811a20dfdfa30597e"
-token = AuthToken::Token.new(key, roles: ["read", "write"])
-token.roles # => ["read", "write"]
+key = KeyStore::Key.new("2de1c1c7aefee1f811a20dfdfa30597e", roles: ["read", "write"])
+key.roles # => ["read", "write"]
 ```
 
 ### Review the YAML file
 
-Tokens are stored in a human friendly YAML file and can be manually edited.
+Keys are stored in a human friendly YAML file and can be manually edited.
 
 *The location of this file is configurable. [See above](#configure-the-storage-location)*
 
 ```yaml
-# /path/to/auth_tokens.yml
+# /path/to/keys.yml
 ---
 2de1c1c7aefee1f811a20dfdfa30597e:
   :roles:
   - read
   - write
-  :notes: This token is for testing only. One more thing...
+  :notes: This key is for testing only. One more thing...
   :http_header: 'Authorization: Token token="2de1c1c7aefee1f811a20dfdfa30597e"'
 ```
 
 ## Example Rails Integration
 
-First, ensure that any desired tokens exist in the YAML file.
+First, ensure that any desired api-keys exist in the YAML file.
 Then add the dependency to the Gemfile.
 
 ```ruby
 # Gemfile
-gem "auth_token"
+gem "key_store"
 ```
 
-Next, use an initializer to configure the token file location.
+Next, use an initializer to configure the api-keys file location.
 
 ```ruby
-# config/initializers/auth_token.rb
-AuthToken.set_file_path File.join(Rails.root, "db/auth_tokens.yml")
+# config/initializers/key_store.rb
+KeyStore.set_file_path File.join(Rails.root, "db/keys.yml")
 
-# optionally ensure a test token exists
+# optionally ensure a test api-key exists
 if Rails.env == "development"
-  test_token = AuthToken::Token.new("test-token",
+  test_key = KeyStore::Key.new("test-key",
     roles: [:test],
-    notes: "This token is for testing only."
+    notes: "This key is for testing only."
   )
-  test_token.save!
+  test_key.save!
 end
 ```
 
@@ -156,11 +153,11 @@ Finally, add authentication to your controllers.
 
 ```ruby
 #app/controller/users_controller.rb
-require "auth_token"
+require "key_store"
 
 class UsersController < ActionController::Base
 
-  before_filter :verify_auth_token
+  before_filter :verify_key_store
 
   def show
     # logic here ...
@@ -168,12 +165,12 @@ class UsersController < ActionController::Base
 
   protected
 
-  def verify_auth_token
-    # note: consumers should pass the token in the "Authorization" HTTP header
+  def verify_key_store
+    # note: consumers should pass the api-key in the "Authorization" HTTP header
     authenticate_or_request_with_http_token do |token, options|
-      # use the @auth_token with your favorite authorization library
+      # use the @api_key with your favorite authorization library
       # cancan for example
-      @auth_token = AuthToken.find(token)
+      @api_key = KeyStore.find(token)
     end
   end
 

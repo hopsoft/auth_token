@@ -1,10 +1,10 @@
 require "yaml/store"
 require "thread"
 require "fileutils"
-require_relative "auth_token/token"
-require_relative "auth_token/version"
+require_relative "key_store/key"
+require_relative "key_store/version"
 
-module AuthToken
+module KeyStore
 
   class << self
 
@@ -28,16 +28,16 @@ module AuthToken
       @file
     end
 
-    def exists?(key)
-      !!(file.transaction { file[key.to_s] })
+    def exists?(name)
+      !!(file.transaction { file[name.to_s] })
     end
 
-    def find(key)
-      exists?(key) ? AuthToken::Token.new(key) : nil
+    def find(name)
+      exists?(name) ? KeyStore::Key.new(name) : nil
     end
 
-    def delete!(key)
-      file.transaction { file.delete(key.to_s) }
+    def delete!(name)
+      file.transaction { file.delete(name.to_s) }
     end
 
     private

@@ -1,12 +1,12 @@
-require File.expand_path("../lib/auth_token/version", __FILE__)
+require File.expand_path("../lib/key_store/version", __FILE__)
 
 Gem::Specification.new do |spec|
-  spec.name                  = "auth_token"
-  spec.version               = AuthToken::VERSION
+  spec.name                  = "key_store"
+  spec.version               = KeyStore::VERSION
   spec.license               = "MIT"
-  spec.homepage              = "https://github.com/hopsoft/auth_token"
-  spec.summary               = "A simple auth token storage engine"
-  spec.description           = "A simple auth token storage engine"
+  spec.homepage              = "https://github.com/hopsoft/key_store"
+  spec.summary               = "A simple api-key storage engine"
+  spec.description           = "A simple api-key storage engine"
 
   spec.authors               = ["Nathan Hopkins"]
   spec.email                 = ["natehop@gmail.com"]
