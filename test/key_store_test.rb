@@ -18,7 +18,7 @@ class KeyStoreTest < MicroTest::Test
     end
 
     begin
-      assert KeyStore.file
+      assert KeyStore.store
     rescue Exception => e
       error = e
     end
@@ -27,7 +27,7 @@ class KeyStoreTest < MicroTest::Test
   end
 
   test "file success with valid file_path" do
-    assert KeyStore.file
+    assert KeyStore.store
   end
 
   test "unknown key does not exist" do
@@ -40,6 +40,16 @@ class KeyStoreTest < MicroTest::Test
 
   test "ok to call delete! on unknown key" do
     assert KeyStore.delete!(:foobar).nil?
+  end
+
+  test "to_hash" do
+    KeyStore::Key.new(:foobar, roles: [:a, :b], notes: "a note").save!
+    assert KeyStore.to_hash == {
+      "foobar" => {
+        :roles       => ["a", "b"],
+        :notes       => "a note",
+        :http_header => "Authorization: Token token=\"foobar\""}
+    }
   end
 
 end

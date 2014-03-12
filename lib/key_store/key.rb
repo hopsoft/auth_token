@@ -4,7 +4,7 @@ module KeyStore
   class Key
     extend Forwardable
 
-    def_delegators :KeyStore, :file, :exists?
+    def_delegators :KeyStore, :store, :exists?
     attr_reader :name, :roles
     attr_accessor :notes
     alias_method :to_s, :name
@@ -13,8 +13,8 @@ module KeyStore
       @name = name.to_s
 
       if exists?(name)
-        set_roles_from_file if roles.nil?
-        set_notes_from_file if notes.nil?
+        set_roles_from_store if roles.nil?
+        set_notes_from_store if notes.nil?
       end
 
       @roles ||= (roles || []).map(&:to_s)
@@ -26,7 +26,7 @@ module KeyStore
     end
 
     def save!
-      file.transaction do |f|
+      store.transaction do |f|
         f[name] ||= {}
         f[name][:roles] = roles.map(&:to_s)
         f[name][:notes] = notes.to_s
@@ -36,14 +36,14 @@ module KeyStore
 
     private
 
-    def set_roles_from_file
-      file.transaction do |f|
+    def set_roles_from_store
+      store.transaction do |f|
         @roles = f[name][:roles]
       end
     end
 
-    def set_notes_from_file
-      file.transaction do |f|
+    def set_notes_from_store
+      store.transaction do |f|
         @notes = f[name][:notes]
       end
     end

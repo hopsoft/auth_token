@@ -14,10 +14,10 @@ module KeyStore
       @file_path = value
     end
 
-    def file
-      if @file.nil? || modified?
+    def store
+      if @store.nil? || modified?
         Mutex.new.synchronize do
-          @file = begin
+          @store = begin
             raise "file_path not set" if file_path.nil?
             FileUtils.touch(file_path) unless File.exists?(file_path)
             self.mtime = File.mtime(file_path)
@@ -25,11 +25,11 @@ module KeyStore
           end
         end
       end
-      @file
+      @store
     end
 
     def exists?(name)
-      !!(file.transaction { |f| f[name.to_s] })
+      !!(store.transaction { |f| f.root?(name.to_s) })
     end
 
     def find(name)
@@ -37,7 +37,11 @@ module KeyStore
     end
 
     def delete!(name)
-      file.transaction { |f| f.delete(name.to_s) }
+      store.transaction { |f| f.delete(name.to_s) }
+    end
+
+    def to_hash
+      YAML.load(File.read(file_path))
     end
 
     private
