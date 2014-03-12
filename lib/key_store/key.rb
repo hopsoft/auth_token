@@ -26,25 +26,25 @@ module KeyStore
     end
 
     def save!
-      file.transaction do
-        file[name] ||= {}
-        file[name][:roles] = roles.map(&:to_s)
-        file[name][:notes] = notes.to_s
-        file[name][:http_header] = http_header
+      file.transaction do |f|
+        f[name] ||= {}
+        f[name][:roles] = roles.map(&:to_s)
+        f[name][:notes] = notes.to_s
+        f[name][:http_header] = http_header
       end
     end
 
     private
 
     def set_roles_from_file
-      file.transaction do
-        @roles = file[name][:roles]
+      file.transaction do |f|
+        @roles = f[name][:roles]
       end
     end
 
     def set_notes_from_file
-      file.transaction do
-        @notes = file[name][:notes]
+      file.transaction do |f|
+        @notes = f[name][:notes]
       end
     end
 

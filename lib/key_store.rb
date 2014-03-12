@@ -29,7 +29,7 @@ module KeyStore
     end
 
     def exists?(name)
-      !!(file.transaction { file[name.to_s] })
+      !!(file.transaction { |f| f[name.to_s] })
     end
 
     def find(name)
@@ -37,7 +37,7 @@ module KeyStore
     end
 
     def delete!(name)
-      file.transaction { file.delete(name.to_s) }
+      file.transaction { |f| f.delete(name.to_s) }
     end
 
     private
