@@ -40,10 +40,6 @@ module KeyStore
       store.transaction { |f| f.delete(name.to_s) }
     end
 
-    def to_hash
-      YAML.load(File.read(file_path))
-    end
-
     private
 
     attr_accessor :mtime

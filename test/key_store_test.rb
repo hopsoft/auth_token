@@ -42,14 +42,4 @@ class KeyStoreTest < MicroTest::Test
     assert KeyStore.delete!(:foobar).nil?
   end
 
-  test "to_hash" do
-    KeyStore::Key.new(:foobar, roles: [:a, :b], notes: "a note").save!
-    assert KeyStore.to_hash == {
-      "foobar" => {
-        :roles       => ["a", "b"],
-        :notes       => "a note",
-        :http_header => "Authorization: Token token=\"foobar\""}
-    }
-  end
-
 end
